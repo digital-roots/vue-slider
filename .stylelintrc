@@ -1,0 +1,28 @@
+{
+    "plugins": [
+        "stylelint-order"
+    ],
+    "extends": [
+        "stylelint-config-standard-scss",
+        "stylelint-config-recommended-vue/scss"
+    ],
+    "rules": {
+        "at-rule-no-unknown": null,
+        "scss/at-rule-no-unknown": true,
+        "order/order": [
+            "custom-properties",
+            "declarations"
+        ],
+        "order/properties-alphabetical-order": true,
+        "selector-pseudo-element-no-unknown": [
+            true,
+            {
+                "ignorePseudoElements": [
+                    "v-deep"
+                ]
+            }
+        ],
+        "string-quotes": "single",
+        "scss/dollar-variable-empty-line-before": "never"
+    }
+}
