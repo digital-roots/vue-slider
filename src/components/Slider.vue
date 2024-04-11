@@ -106,7 +106,7 @@ const emitValue = () => {
   width: 80%;
 
   .slider-control {
-    min-height: 50px;
+    min-height: 1.5rem;
     position: relative;
 
     input[type="range"] {
