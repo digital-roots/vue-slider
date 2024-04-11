@@ -22,7 +22,6 @@
                 ]
             }
         ],
-        "string-quotes": "single",
         "scss/dollar-variable-empty-line-before": "never"
     }
 }
