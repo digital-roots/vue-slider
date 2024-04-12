@@ -1,9 +1,16 @@
 {
-  "name": "vue-slider",
-  "version": "0.0.0",
+  "name": "@digital-roots/vue-slider",
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=16"
+  },
+  "main": "dist/lib/vue-slider.es.js",
+  "module": "dist/lib/vue-slider.es.js",
+  "browser": "dist/lib/vue-slider.es.js",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
+    "build:lib": "vite build --config vite.lib.config.js",
     "preview": "vite preview --port 4173",
     "test:unit": "vitest --environment jsdom",
     "build-only": "vite build",
