@@ -197,6 +197,7 @@ const emitValue = () => {
     input[type="range"] {
       appearance: none;
       background-color: #C6C6C6;
+      color: currentColor;
       height: 4px;
       pointer-events: none;
       position: absolute;
@@ -204,9 +205,9 @@ const emitValue = () => {
 
       &::-webkit-slider-thumb {
         appearance: none;
-        background-color: #fff;
+        background-color: currentColor;
+        border: none;
         border-radius: 50%;
-        box-shadow: 0 0 0 1px #C6C6C6;
         cursor: pointer;
         height: 0.8rem;
         pointer-events: all;
@@ -215,17 +216,13 @@ const emitValue = () => {
 
       &::-moz-range-thumb {
         appearance: none;
-        background-color: #fff;
+        background-color: currentColor;
+        border: none;
         border-radius: 50%;
-        box-shadow: 0 0 0 1px #C6C6C6;
         cursor: pointer;
         height: 0.8rem;
         pointer-events: all;
         width: 0.8rem;
-      }
-
-      &::-webkit-slider-thumb:hover {
-        background: #f7f7f7;
       }
     }
 
