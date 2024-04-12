@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, type StyleValue } from 'vue';
 
 interface SliderValue {
   min: number;
@@ -34,12 +34,12 @@ const emit = defineEmits<{ (e: 'change', value: SliderValue): void }>();
 const from = ref(0);
 const to = ref(100);
 
-const sliderBackground = computed<string>(() => {
+const sliderBackgroundStyle = computed<StyleValue>(() => {
   const rangeDistance = props.max - props.min;
   const fromPosition = from.value - props.min;
   const toPosition = to.value - props.min;
 
-  return `linear-gradient(
+  const background = `linear-gradient(
     to right,
     ${props.sliderColor} 0%,
     ${props.sliderColor} ${(fromPosition / rangeDistance) * 100}%,
@@ -47,6 +47,8 @@ const sliderBackground = computed<string>(() => {
     ${props.rangeColor} ${(toPosition / rangeDistance) * 100}%, 
     ${props.sliderColor} ${(toPosition / rangeDistance) * 100}%, 
     ${props.sliderColor} 100%)`;
+
+  return { background };
 });
 
 const onFromSliderInput = () => {
@@ -98,9 +100,7 @@ const emitValue = () => {
         type="range"
         :min="min"
         :max="max"
-        :style="{
-          background: sliderBackground,
-        }"
+        :style="sliderBackgroundStyle"
         @input="onToSliderInput"
         @change="onSliderChange"
       />
