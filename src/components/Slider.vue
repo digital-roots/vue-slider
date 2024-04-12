@@ -56,6 +56,26 @@ const sliderBackgroundStyle = computed<StyleValue>(() => {
   return { background };
 });
 
+const fromSliderBubbleStyle = computed<StyleValue>(() => {
+  const rangeDistance = props.max - props.min;
+  const fromPosition = from.value - props.min;
+
+  const backgroundColor = props.rangeColor;
+  const left = `${(fromPosition / rangeDistance) * 100}%`;
+
+  return { backgroundColor, color: backgroundColor, left };
+});
+
+const toSliderBubbleStyle = computed<StyleValue>(() => {
+  const rangeDistance = props.max - props.min;
+  const toPosition = to.value - props.min;
+
+  const backgroundColor = props.rangeColor;
+  const left = `${(toPosition / rangeDistance) * 100}%`;
+
+  return { backgroundColor, color: backgroundColor, left };
+});
+
 watch(
   () => props.min + props.max,
   () => {
@@ -116,7 +136,30 @@ const emitValue = () => {
 
 <template>
   <div class="slider-container">
-    <div class="slider-control">
+    <div class="bubble-control">
+      <div
+        class="bubble"
+        :style="fromSliderBubbleStyle"
+      >
+        <div class="text">
+          {{ from }}
+        </div>
+      </div>
+      <div
+        class="bubble"
+        :style="toSliderBubbleStyle"
+      >
+        <div class="text">
+          {{ to }}
+        </div>
+      </div>
+    </div>
+    <div
+      class="slider-control"
+      :style="{
+        color: props.rangeColor,
+      }"
+    >
       <input
         id="from-slider"
         v-model.number="from"
@@ -190,6 +233,43 @@ const emitValue = () => {
       height: 0;
       margin-top: 4px;
       z-index: 1;
+    }
+  }
+
+  .bubble-control {
+    margin-left: 9px;
+    margin-right: 6px;
+    min-height: .5rem;
+    position: relative;
+
+    .bubble {
+      border-radius: 4px;
+      content: '2';
+      margin-top: -1.8rem;
+      min-height: 1rem;
+      min-width: 1rem;
+      padding: 4px 12px;
+      position: absolute;
+      text-align: center;
+      transform: translateX(-50%);
+
+      &::after {
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid;
+        border-top-color: inherit;
+        content: '';
+        height: 0;
+        margin-top: 2px;
+        position: absolute;
+        transform: translateX(-50%);
+        width: 0;
+      }
+
+      .text {
+        color: white;
+        line-height: 1rem;
+      }
     }
   }
 }
