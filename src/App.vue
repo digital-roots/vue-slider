@@ -46,7 +46,7 @@ const onChangeSlider = (sliderValue: SliderValue) => {
         <label for="min">Min Value</label>
         <input
           id="min"
-          v-model="min"
+          v-model.number="min"
           type="number"
           name="Min Value"
         />
@@ -54,14 +54,14 @@ const onChangeSlider = (sliderValue: SliderValue) => {
         <label for="max">Max Value</label>
         <input
           id="max"
-          v-model="max"
+          v-model.number="max"
           type="number"
           name="Max Value"
         />
       </div>
 
       <div class="options">
-        <label for="min">lazy</label>
+        <label for="min">Lazy</label>
         <input
           id="min"
           v-model="lazy"
