@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { computed, ref, type StyleValue } from 'vue';
+import {
+  computed,
+  ref,
+  watch,
+  type StyleValue,
+} from 'vue';
 
 interface SliderValue {
   min: number;
@@ -50,6 +55,33 @@ const sliderBackgroundStyle = computed<StyleValue>(() => {
 
   return { background };
 });
+
+watch(
+  () => props.min + props.max,
+  () => {
+    let fromOrToModified = false;
+
+    if (props.min > from.value) {
+      from.value = props.min;
+      fromOrToModified = true;
+    }
+
+    if (props.max < to.value) {
+      to.value = props.max;
+      fromOrToModified = true;
+    }
+
+    if (props.max < props.min || props.max < from.value) {
+      to.value = props.max;
+      from.value = props.max;
+      fromOrToModified = true;
+    }
+
+    if (fromOrToModified) {
+      emitValue();
+    }
+  },
+);
 
 const onFromSliderInput = () => {
   if (from.value > to.value) {
