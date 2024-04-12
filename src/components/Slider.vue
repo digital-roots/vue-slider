@@ -49,20 +49,30 @@ const sliderBackground = computed<string>(() => {
     ${props.sliderColor} 100%)`;
 });
 
-const onFromSliderInputChange = () => {
+const onFromSliderInput = () => {
   if (from.value > to.value) {
     to.value = from.value;
   }
 
-  emitValue();
+  if (!props.lazy) {
+    emitValue();
+  }
 };
 
-const onToSliderInputChange = () => {
+const onToSliderInput = () => {
   if (to.value < from.value) {
     from.value = to.value;
   }
 
-  emitValue();
+  if (!props.lazy) {
+    emitValue();
+  }
+};
+
+const onSliderChange = () => {
+  if (props.lazy) {
+    emitValue();
+  }
 };
 
 const emitValue = () => {
@@ -79,8 +89,8 @@ const emitValue = () => {
         type="range"
         :min="min"
         :max="max"
-        :lazy="lazy"
-        @input="onFromSliderInputChange"
+        @input="onFromSliderInput"
+        @change="onSliderChange"
       />
       <input
         id="to-slider"
@@ -91,8 +101,8 @@ const emitValue = () => {
         :style="{
           background: sliderBackground,
         }"
-        :lazy="lazy"
-        @input="onToSliderInputChange"
+        @input="onToSliderInput"
+        @change="onSliderChange"
       />
     </div>
   </div>
