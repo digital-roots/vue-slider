@@ -9,6 +9,9 @@ interface SliderValue {
 
 const min = ref(0);
 const max = ref(100);
+const lazy = ref<boolean>(false);
+const sliderColor = ref<string>('#C6C6C6');
+const rangeColor = ref<string>('#25daa5');
 
 const currentMin = ref(0);
 const currentMax = ref(100);
@@ -29,6 +32,9 @@ const onChangeSlider = (sliderValue: SliderValue) => {
       <slider
         :min="min"
         :max="max"
+        :lazy="lazy"
+        :slider-color="sliderColor"
+        :range-color="rangeColor"
         @change="onChangeSlider"
       />
 
@@ -50,6 +56,32 @@ const onChangeSlider = (sliderValue: SliderValue) => {
           id="max"
           v-model="max"
           type="number"
+          name="Max Value"
+        />
+      </div>
+
+      <div class="options">
+        <label for="min">lazy</label>
+        <input
+          id="min"
+          v-model="lazy"
+          type="checkbox"
+          name="Min Value"
+        />
+
+        <label for="min">Slider Color</label>
+        <input
+          id="min"
+          v-model="sliderColor"
+          type="color"
+          name="Min Value"
+        />
+
+        <label for="max">Range Color</label>
+        <input
+          id="max"
+          v-model="rangeColor"
+          type="color"
           name="Max Value"
         />
       </div>
