@@ -39,6 +39,9 @@ const emit = defineEmits<{ (e: 'change', value: SliderValue): void }>();
 const from = ref(0);
 const to = ref(100);
 
+const showFromBubble = ref(false);
+const showToBubble = ref(false);
+
 const sliderBackgroundStyle = computed<StyleValue>(() => {
   const rangeDistance = props.max - props.min;
   const fromPosition = from.value - props.min;
@@ -63,7 +66,14 @@ const fromSliderBubbleStyle = computed<StyleValue>(() => {
   const backgroundColor = props.rangeColor;
   const left = `${(fromPosition / rangeDistance) * 100}%`;
 
-  return { backgroundColor, color: backgroundColor, left };
+  const display = showFromBubble.value ? 'block' : 'none';
+
+  return {
+    backgroundColor,
+    color: backgroundColor,
+    display,
+    left,
+  };
 });
 
 const toSliderBubbleStyle = computed<StyleValue>(() => {
@@ -73,7 +83,14 @@ const toSliderBubbleStyle = computed<StyleValue>(() => {
   const backgroundColor = props.rangeColor;
   const left = `${(toPosition / rangeDistance) * 100}%`;
 
-  return { backgroundColor, color: backgroundColor, left };
+  const display = showToBubble.value ? 'block' : 'none';
+
+  return {
+    backgroundColor,
+    color: backgroundColor,
+    display,
+    left,
+  };
 });
 
 watch(
@@ -104,6 +121,8 @@ watch(
 );
 
 const onFromSliderInput = () => {
+  setShowFromBubble(true);
+
   if (from.value > to.value) {
     to.value = from.value;
   }
@@ -114,6 +133,8 @@ const onFromSliderInput = () => {
 };
 
 const onToSliderInput = () => {
+  setShowToBubble(true);
+
   if (to.value < from.value) {
     from.value = to.value;
   }
@@ -121,6 +142,14 @@ const onToSliderInput = () => {
   if (!props.lazy) {
     emitValue();
   }
+};
+
+const setShowFromBubble = (value: boolean) => {
+  showFromBubble.value = value;
+};
+
+const setShowToBubble = (value: boolean) => {
+  showToBubble.value = value;
 };
 
 const onSliderChange = () => {
@@ -168,6 +197,8 @@ const emitValue = () => {
         :max="max"
         @input="onFromSliderInput"
         @change="onSliderChange"
+        @mouseenter="setShowFromBubble(true)"
+        @blur="setShowFromBubble(false)"
       />
       <input
         id="to-slider"
@@ -178,6 +209,8 @@ const emitValue = () => {
         :style="sliderBackgroundStyle"
         @input="onToSliderInput"
         @change="onSliderChange"
+        @mouseenter="setShowToBubble(true)"
+        @blur="setShowToBubble(false)"
       />
     </div>
   </div>
@@ -197,7 +230,7 @@ const emitValue = () => {
     input[type="range"] {
       appearance: none;
       background-color: #C6C6C6;
-      color: currentColor;
+      color: currentcolor;
       height: 4px;
       pointer-events: none;
       position: absolute;
@@ -205,7 +238,7 @@ const emitValue = () => {
 
       &::-webkit-slider-thumb {
         appearance: none;
-        background-color: currentColor;
+        background-color: currentcolor;
         border: none;
         border-radius: 50%;
         cursor: pointer;
@@ -216,7 +249,7 @@ const emitValue = () => {
 
       &::-moz-range-thumb {
         appearance: none;
-        background-color: currentColor;
+        background-color: currentcolor;
         border: none;
         border-radius: 50%;
         cursor: pointer;
