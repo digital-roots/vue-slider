@@ -36,8 +36,8 @@ const props = defineProps({
 
 const emit = defineEmits<{ (e: 'change', value: SliderValue): void }>();
 
-const from = ref(0);
-const to = ref(100);
+const from = ref(props.min);
+const to = ref(props.max);
 
 const showFromBubble = ref(false);
 const showToBubble = ref(false);
@@ -221,7 +221,7 @@ const emitValue = () => {
   display: flex;
   flex-direction: column;
   margin: 0.5rem auto;
-  width: 80%;
+  width: 100%;
 
   .slider-control {
     min-height: 1.5rem;
@@ -230,8 +230,9 @@ const emitValue = () => {
     input[type="range"] {
       appearance: none;
       background-color: #C6C6C6;
+      border-radius: 5px;
       color: currentcolor;
-      height: 4px;
+      height: 5px;
       pointer-events: none;
       position: absolute;
       width: 100%;
@@ -242,9 +243,9 @@ const emitValue = () => {
         border: none;
         border-radius: 50%;
         cursor: pointer;
-        height: 0.8rem;
+        height: 0.9rem;
         pointer-events: all;
-        width: 0.8rem;
+        width: 0.9rem;
       }
 
       &::-moz-range-thumb {
@@ -253,21 +254,20 @@ const emitValue = () => {
         border: none;
         border-radius: 50%;
         cursor: pointer;
-        height: 0.8rem;
+        height: 0.9rem;
         pointer-events: all;
-        width: 0.8rem;
+        width: 0.9rem;
       }
     }
 
     #from-slider {
-      height: 0;
-      margin-top: 4px;
+      background-color: transparent;
       z-index: 1;
     }
   }
 
   .bubble-control {
-    margin-left: 9px;
+    margin-left: 6px;
     margin-right: 6px;
     min-height: .5rem;
     position: relative;
