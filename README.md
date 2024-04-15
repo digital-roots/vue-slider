@@ -2,6 +2,8 @@
 
 2 value range slider component and Vue 2.7.x compatible.
 
+![Captura desde 2024-04-15 13-22-16](https://github.com/digital-roots/vue-slider/assets/142359595/86e15b5a-a167-424f-bf1e-0754518867c7)
+
 ## Example
 
 ```vue
