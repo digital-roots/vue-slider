@@ -29,14 +29,16 @@ const onChangeSlider = (sliderValue: SliderValue) => {
 
       <h2>Demo</h2>
 
-      <slider
-        :min="min"
-        :max="max"
-        :lazy="lazy"
-        :slider-color="sliderColor"
-        :range-color="rangeColor"
-        @change="onChangeSlider"
-      />
+      <div class="component-demo">
+        <slider
+          :min="min"
+          :max="max"
+          :lazy="lazy"
+          :slider-color="sliderColor"
+          :range-color="rangeColor"
+          @change="onChangeSlider"
+        />
+      </div>
 
       <h3>
         <b>{{ currentMin }} - {{ currentMax }}</b>
@@ -48,7 +50,6 @@ const onChangeSlider = (sliderValue: SliderValue) => {
           id="min"
           v-model.number="min"
           type="number"
-          name="Min Value"
         />
 
         <label for="max">Max Value</label>
@@ -56,33 +57,29 @@ const onChangeSlider = (sliderValue: SliderValue) => {
           id="max"
           v-model.number="max"
           type="number"
-          name="Max Value"
         />
       </div>
 
       <div class="options">
-        <label for="min">Lazy</label>
+        <label for="lazy">Lazy</label>
         <input
-          id="min"
+          id="lazy"
           v-model="lazy"
           type="checkbox"
-          name="Min Value"
         />
 
-        <label for="min">Slider Color</label>
+        <label for="slider-color">Slider Color</label>
         <input
-          id="min"
+          id="slider-color"
           v-model="sliderColor"
           type="color"
-          name="Min Value"
         />
 
-        <label for="max">Range Color</label>
+        <label for="range-color">Range Color</label>
         <input
-          id="max"
+          id="range-color"
           v-model="rangeColor"
           type="color"
-          name="Max Value"
         />
       </div>
     </main>
@@ -96,6 +93,10 @@ main {
   flex-direction: column;
   font-family: sans-serif;
   line-height: 1.5;
+
+  .component-demo {
+    width: 80%;
+  }
 
   .options {
     display: flex;
