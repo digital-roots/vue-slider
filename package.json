@@ -1,6 +1,8 @@
 {
   "name": "@digital-roots/vue-slider",
   "version": "0.1.0",
+  "description": "2 value range slider",
+  "author": "Digital Roots",
   "engines": {
     "node": ">=16"
   },
