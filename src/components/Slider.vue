@@ -54,7 +54,8 @@ const sliderBackgroundStyle = computed<StyleValue>(() => {
     ${props.rangeColor} ${(fromPosition / rangeDistance) * 100}%,
     ${props.rangeColor} ${(toPosition / rangeDistance) * 100}%, 
     ${props.sliderColor} ${(toPosition / rangeDistance) * 100}%, 
-    ${props.sliderColor} 100%)`;
+    ${props.sliderColor} 100%
+  )`;
 
   return { background };
 });
@@ -229,7 +230,7 @@ const emitValue = () => {
 
     input[type="range"] {
       appearance: none;
-      background-color: #C6C6C6;
+      background-color: transparent;
       border-radius: 5px;
       color: currentcolor;
       height: 5px;
