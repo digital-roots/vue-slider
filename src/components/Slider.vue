@@ -256,8 +256,8 @@ const emitValue = () => {
 
     .bubble {
       background-color: var(--vue-slider-range-color, #1c71d8);
-      color: var(--vue-slider-range-color , #1c71d8);
       border-radius: 4px;
+      color: var(--vue-slider-range-color , #1c71d8);
       content: '2';
       margin-top: -1.8rem;
       min-height: 1rem;
