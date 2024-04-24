@@ -1,55 +1,116 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue';
-import TheWelcome from './components/TheWelcome.vue';
+import slider from '@/components/Slider.vue';
+import { computed, ref } from 'vue';
+
+interface SliderValue {
+  min: number;
+  max: number;
+}
+
+const min = ref(0);
+const max = ref(100);
+const lazy = ref<boolean>(false);
+const sliderColor = ref<string>('#C6C6C6');
+const rangeColor = ref<string>('#1c71d8');
+
+const currentMin = ref(0);
+const currentMax = ref(100);
+
+const onChangeSlider = (sliderValue: SliderValue) => {
+  currentMin.value = sliderValue.min;
+  currentMax.value = sliderValue.max;
+};
+
+const mainStyle = computed(() => ({
+  '--vue-slider-bg-color': sliderColor.value,
+  '--vue-slider-range-color': rangeColor.value,
+}));
 </script>
 
 <template>
   <div id="app">
-    <header>
-      <img
-        alt="Vue logo"
-        class="logo"
-        src="./assets/logo.svg"
-        width="125"
-        height="125"
-      />
-
-      <div class="wrapper">
-        <HelloWorld msg="You did it!" />
-      </div>
-    </header>
-
     <main>
-      <TheWelcome />
+      <h1>Vue Slider</h1>
+
+      <h2>Demo</h2>
+
+      <div
+        class="component-demo"
+        :style="mainStyle"
+      >
+        <slider
+          :min="min"
+          :max="max"
+          :lazy="lazy"
+          :slider-color="sliderColor"
+          :range-color="rangeColor"
+          @change="onChangeSlider"
+        />
+      </div>
+
+      <h3>
+        <b>{{ currentMin }} - {{ currentMax }}</b>
+      </h3>
+
+      <div class="options">
+        <label for="min">Min Value</label>
+        <input
+          id="min"
+          v-model.number="min"
+          type="number"
+        />
+
+        <label for="max">Max Value</label>
+        <input
+          id="max"
+          v-model.number="max"
+          type="number"
+        />
+      </div>
+
+      <div class="options">
+        <label for="lazy">Lazy</label>
+        <input
+          id="lazy"
+          v-model="lazy"
+          type="checkbox"
+        />
+
+        <label for="slider-color">Slider Color</label>
+        <input
+          id="slider-color"
+          v-model="sliderColor"
+          type="color"
+        />
+
+        <label for="range-color">Range Color</label>
+        <input
+          id="range-color"
+          v-model="rangeColor"
+          type="color"
+        />
+      </div>
     </main>
   </div>
 </template>
 
-<style scoped>
-header {
+<style lang="scss" scoped>
+main {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
   line-height: 1.5;
-}
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (width >= 1024px) {
-  header {
-    display: flex;
-    padding-right: calc(var(--section-gap) / 2);
-    place-items: center;
+  .component-demo {
+    width: 80%;
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
+  .options {
     display: flex;
-    flex-wrap: wrap;
-    place-items: flex-start;
+    justify-content: space-evenly;
+    margin-bottom: 1rem;
+    width: 100%;
   }
 }
 </style>
