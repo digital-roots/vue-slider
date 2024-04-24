@@ -24,14 +24,6 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  sliderColor: {
-    type: String,
-    default: '#C6C6C6',
-  },
-  rangeColor: {
-    type: String,
-    default: '#25daa5',
-  },
 });
 
 const emit = defineEmits<{ (e: 'change', value: SliderValue): void }>();
@@ -49,12 +41,12 @@ const sliderBackgroundStyle = computed<StyleValue>(() => {
 
   const background = `linear-gradient(
     to right,
-    ${props.sliderColor} 0%,
-    ${props.sliderColor} ${(fromPosition / rangeDistance) * 100}%,
-    ${props.rangeColor} ${(fromPosition / rangeDistance) * 100}%,
-    ${props.rangeColor} ${(toPosition / rangeDistance) * 100}%, 
-    ${props.sliderColor} ${(toPosition / rangeDistance) * 100}%, 
-    ${props.sliderColor} 100%
+    var(--vue-slider-bg-color, #C6C6C6) 0%,
+    var(--vue-slider-bg-color, #C6C6C6) ${(fromPosition / rangeDistance) * 100}%,
+    var(--vue-slider-range-color, #1c71d8) ${(fromPosition / rangeDistance) * 100}%,
+    var(--vue-slider-range-color, #1c71d8) ${(toPosition / rangeDistance) * 100}%, 
+    var(--vue-slider-bg-color, #C6C6C6) ${(toPosition / rangeDistance) * 100}%, 
+    var(--vue-slider-bg-color, #C6C6C6) 100%
   )`;
 
   return { background };
@@ -64,14 +56,11 @@ const fromSliderBubbleStyle = computed<StyleValue>(() => {
   const rangeDistance = props.max - props.min;
   const fromPosition = from.value - props.min;
 
-  const backgroundColor = props.rangeColor;
   const left = `${(fromPosition / rangeDistance) * 100}%`;
 
   const display = showFromBubble.value ? 'block' : 'none';
 
   return {
-    backgroundColor,
-    color: backgroundColor,
     display,
     left,
   };
@@ -80,15 +69,11 @@ const fromSliderBubbleStyle = computed<StyleValue>(() => {
 const toSliderBubbleStyle = computed<StyleValue>(() => {
   const rangeDistance = props.max - props.min;
   const toPosition = to.value - props.min;
-
-  const backgroundColor = props.rangeColor;
   const left = `${(toPosition / rangeDistance) * 100}%`;
 
   const display = showToBubble.value ? 'block' : 'none';
 
   return {
-    backgroundColor,
-    color: backgroundColor,
     display,
     left,
   };
@@ -184,12 +169,7 @@ const emitValue = () => {
         </div>
       </div>
     </div>
-    <div
-      class="slider-control"
-      :style="{
-        color: props.rangeColor,
-      }"
-    >
+    <div class="slider-control">
       <input
         id="from-slider"
         v-model.number="from"
@@ -225,12 +205,13 @@ const emitValue = () => {
   width: 100%;
 
   .slider-control {
+    color: var(--vue-slider-range-color, #1c71d8);
     min-height: 1.5rem;
     position: relative;
 
     input[type="range"] {
       appearance: none;
-      background-color: transparent;
+      background-color: var(--vue-slider-bg-color, #C6C6C6);
       border-radius: 5px;
       color: currentcolor;
       height: 5px;
@@ -274,7 +255,9 @@ const emitValue = () => {
     position: relative;
 
     .bubble {
+      background-color: var(--vue-slider-range-color, #1c71d8);
       border-radius: 4px;
+      color: var(--vue-slider-range-color , #1c71d8);
       content: '2';
       margin-top: -1.8rem;
       min-height: 1rem;
