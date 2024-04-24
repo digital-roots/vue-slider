@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import slider from '@/components/Slider.vue';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 interface SliderValue {
   min: number;
@@ -11,7 +11,7 @@ const min = ref(0);
 const max = ref(100);
 const lazy = ref<boolean>(false);
 const sliderColor = ref<string>('#C6C6C6');
-const rangeColor = ref<string>('#25daa5');
+const rangeColor = ref<string>('#1c71d8');
 
 const currentMin = ref(0);
 const currentMax = ref(100);
@@ -20,6 +20,11 @@ const onChangeSlider = (sliderValue: SliderValue) => {
   currentMin.value = sliderValue.min;
   currentMax.value = sliderValue.max;
 };
+
+const mainStyle = computed(() => ({
+  '--vue-slider-bg-color': sliderColor.value,
+  '--vue-slider-range-color': rangeColor.value,
+}));
 </script>
 
 <template>
@@ -29,7 +34,10 @@ const onChangeSlider = (sliderValue: SliderValue) => {
 
       <h2>Demo</h2>
 
-      <div class="component-demo">
+      <div
+        class="component-demo"
+        :style="mainStyle"
+      >
         <slider
           :min="min"
           :max="max"
